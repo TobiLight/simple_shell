@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 	{
 		write(STDOUT_FILENO, prompt, 2);
 		ret = shellx_handle_args(exec_ret);
-		if (ret == SHELLX_END_OF_FILE || ret == shellx_EXIT)
+		if (ret == SHELLX_END_OF_FILE || ret == SHELLX_EXIT)
 		{
 			if (ret == SHELLX_END_OF_FILE)
 				write(STDOUT_FILENO, new_line, 1);

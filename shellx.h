@@ -5,10 +5,22 @@
  * File: shellx.h
  * Authors: Oluwatobiloba Light
  *          Princewill Chimdi Samuel
- * Description: Contains structs, typedefs, function 
+ * Description: Contains structs, typedefs, function
  *              prototypes and global variables used
  *              throughout this project.
 */
+
+#include <fcntl.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <errno.h>
+#include <stdio.h>
+#include <limits.h>
+#include <string.h>
 
 #define SHELLX_END_OF_FILE -2
 #define SHELLX_EXIT -3
