@@ -1,5 +1,5 @@
 /*
- * File: env_handler.c
+ * File: err_handler.c
  * Authors: Oluwatobiloba Light
  *          Princewill Chimdi Samuel
  */
