@@ -14,15 +14,15 @@ int (*get_builtin(char *))(char **, char **);
 /**
  * shellx_exit - Exits the shell.
  * @args: An array of arguments.
- * @beg_arg: A double pointer to the beginning of args.
+ * @front_arg: A double pointer to the beginning of args.
  *
  * Return: If there are no arguments - -3.
  *         If the given exit value is invalid - 2.
  *         O/w - exits with the given status value.
  */
-int shellx_exit(char **args, char **beg_arg)
+int shellx_exit(char **args, char **front_arg)
 {
-	int i = 0, len_of_int = 10;
+	int i = 0, integer_length = 10;
 	unsigned int max = 1 << (sizeof(int) * 8 - 1), num = 0;
 
 	if (args[0])
@@ -30,11 +30,11 @@ int shellx_exit(char **args, char **beg_arg)
 		if (args[0][0] == '+')
 		{
 			i = 1;
-			len_of_int++;
+			integer_length++;
 		}
 		while (args[0][i])
 		{
-			if (i <= len_of_int && args[0][i] >= '0' && args[0][i] <= '9')
+			if (i <= integer_length && args[0][i] >= '0' && args[0][i] <= '9')
 				num = (num * 10) + (args[0][i] - '0');
 			else
 				return (shellx_create_error(--args, 2));
@@ -50,7 +50,7 @@ int shellx_exit(char **args, char **beg_arg)
 		return (shellx_create_error(--args, 2));
 
 	args -= 1;
-	shellx_free_args(args, beg_arg);
+	shellx_free_args(args, front_arg);
 	shellx_free_env();
 	shellx_free_alias_list(aliases);
 	exit(num);
@@ -59,13 +59,13 @@ int shellx_exit(char **args, char **beg_arg)
 /**
  * shellx_cd - Changes the current directory of the shellby process.
  * @args: An array of arguments.
- * @beg_arg: A double pointer to the beginning of args.
+ * @front_arg: A double pointer to the beginning of args.
  *
  * Return: If the given string is not a directory - 2.
  *         If an error occurs - -1.
  *         Otherwise - 0.
  */
-int shellx_cd(char **args, char __attribute__((__unused__)) **beg_arg)
+int shellx_cd(char **args, char __attribute__((__unused__)) **front_arg)
 {
 	char **directory_info, *new_line = "\n";
 	char *oldpwd = NULL, *pwd = NULL;
@@ -158,11 +158,11 @@ int shellx_cd(char **args, char __attribute__((__unused__)) **beg_arg)
 /**
  * shellx_help - Displays information about shellby builtin commands.
  * @args: An array of arguments.
- * @beg_arg: A pointer to the beginning of args.
+ * @front_arg: A pointer to the beginning of args.
  *
  * Return: 0 on success, -1 on failure.
  */
-int shellx_help(char **args, char __attribute__((__unused__)) **beg_arg)
+int shellx_help(char **args, char __attribute__((__unused__)) **front_arg)
 {
 	if (args[0] == NULL)
 		shellx_help_all();
@@ -193,9 +193,9 @@ int shellx_help(char **args, char __attribute__((__unused__)) **beg_arg)
  *
  * Return: A function pointer to the corresponding builtin.
  */
-int (*shellx_get_builtin(char *command))(char **args, char **beg_arg)
+int (*shellx_get_builtin(char *command))(char **args, char **front_arg)
 {
-	int i;
+	int x;
 	sh_builtin_t bf[] = {
 		{"exit", shellx_exit},
 		{"env", shellx_env},
@@ -206,13 +206,13 @@ int (*shellx_get_builtin(char *command))(char **args, char **beg_arg)
 		{"help", shellx_help},
 		{NULL, NULL}};
 
-	i = 0;
-	while (bf[i].name)
+	x = 0;
+	while (bf[x].name)
 	{
 
-		if (shellx_strcmp(bf[i].name, command) == 0)
+		if (shellx_strcmp(bf[x].name, command) == 0)
 			break;
-		i++;
+		x++;
 	}
-	return (bf[i].func);
+	return (bf[x].func);
 }
