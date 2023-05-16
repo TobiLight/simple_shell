@@ -5,12 +5,13 @@
  * File: shellx.h
  * Authors: Oluwatobiloba Light
  *          Princewill Chimdi Samuel
- * Description: Contains structs, typedefs, function prototypes
- *              and global variables used throughout this project.
+ * Description: Contains structs, typedefs, function 
+ *              prototypes and global variables used
+ *              throughout this project.
 */
 
-#define SHELLx_END_OF_FILE -2
-#define SHELLx_EXIT -3
+#define SHELLX_END_OF_FILE -2
+#define SHELLX_EXIT -3
 
 extern char **environ;
 char *name;
