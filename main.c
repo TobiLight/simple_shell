@@ -110,14 +110,14 @@ int main(int argc, char *argv[])
 
 	if (argc != 1)
 	{
-		ret = shellx_proc_commands(argv[1], exec_ret);
+		ret = shellx_proc_file_commands(argv[1], exec_ret);
 		shellx_free_env();
 		shellx_free_alias_list(aliases);
 		return (*exec_ret);
 	}
 	if (!isatty(STDIN_FILENO))
 	{
-		while (ret != shellx_END_OF_FILE && ret != shellx_EXIT)
+		while (ret != SHELLX_END_OF_FILE && ret != SHELLX_EXIT)
 			ret = shellx_handle_args(exec_ret);
 		shellx_free_env();
 		shellx_free_alias_list(aliases);
@@ -127,9 +127,9 @@ int main(int argc, char *argv[])
 	{
 		write(STDOUT_FILENO, prompt, 2);
 		ret = shellx_handle_args(exec_ret);
-		if (ret == shellx_END_OF_FILE || ret == shellx_EXIT)
+		if (ret == SHELLX_END_OF_FILE || ret == shellx_EXIT)
 		{
-			if (ret == shellx_END_OF_FILE)
+			if (ret == SHELLX_END_OF_FILE)
 				write(STDOUT_FILENO, new_line, 1);
 			shellx_free_env();
 			shellx_free_alias_list(aliases);
