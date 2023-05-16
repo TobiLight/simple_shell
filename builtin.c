@@ -117,31 +117,31 @@ int shellx_cd(char **args, char __attribute__((__unused__)) **front_arg)
 		return (-1);
 	}
 
-	directory = malloc(sizeof(char *) * 2);
-	if (directory == NULL)
+	directory_info = malloc(sizeof(char *) * 2);
+	if (directory_info == NULL)
 	{
 		free(oldpwd);
 		free(pwd);
 		return (-1);
 	}
 
-	directory[0] = "OLDPWD";
-	directory[1] = oldpwd;
-	if (shellx_setenv(directory, directory) == -1)
+	directory_info[0] = "OLDPWD";
+	directory_info[1] = oldpwd;
+	if (shellx_setenv(directory_info, directory_info) == -1)
 	{
 		free(oldpwd);
 		free(pwd);
-		free(directory);
+		free(directory_info);
 		return (-1);
 	}
 
-	directory[0] = "PWD";
-	directory[1] = pwd;
-	if (shellx_setenv(directory, directory) == -1)
+	directory_info[0] = "PWD";
+	directory_info[1] = pwd;
+	if (shellx_setenv(directory_info, directory_info) == -1)
 	{
 		free(oldpwd);
 		free(pwd);
-		free(directory);
+		free(directory_info);
 		return (-1);
 	}
 	if (args[0] && args[0][0] == '-' && args[0][1] != '-')
