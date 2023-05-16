@@ -187,13 +187,13 @@ int shellx_help(char **args, char __attribute__((__unused__)) **front_arg)
 }
 
 /**
- * shellx_shellx_get_builtin - Matches a command with a corresponding
+ * shellx_get_builtin - Matches a command with a corresponding
  *               shellx builtin function.
  * @command: The command to match.
  *
  * Return: A function pointer to the corresponding builtin.
  */
-int (*shellx_shellx_get_builtin(char *command))(char **args, char **front_arg)
+int (*shellx_get_builtin(char *command))(char **args, char **front_arg)
 {
 	int x;
 	sh_builtin_t bf[] = {
