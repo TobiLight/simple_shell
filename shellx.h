@@ -1,7 +1,7 @@
 #ifndef SHELLX_H
 #define SHELLX_H
 
-/**
+/*
  * File: shellx.h
  * Authors: Oluwatobiloba Light
  *          Princewill Chimdi Samuel
