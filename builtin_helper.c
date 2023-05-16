@@ -5,7 +5,7 @@
 */
 
 
-#include "shell.h"
+#include "shellx.h"
 
 
 int shellx_cd_helper(char **, char *, struct stat);

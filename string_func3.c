@@ -1,7 +1,7 @@
 /*
  * File: string_func3.c
- * Auth: Alex Yu
- *       Brennan D Baraban
+ * Auth: Oluwatobiloba Light
+ *       Princewill Chimdi Samuel
  */
 
 
