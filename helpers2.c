@@ -77,7 +77,7 @@ void shellx_handle_line(char **line, ssize_t read)
 		if (k != 0)
 		{
 			prev1 = old_line[k - 1];
-			if (curr3 == ';')
+			if (curr2 == ';')
 			{
 				if (next3 == ';' && prev1 != ' ' && prev1 != ';')
 				{

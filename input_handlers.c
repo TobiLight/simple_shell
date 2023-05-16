@@ -26,7 +26,7 @@ int shellx_handle_args(int *exec_ret)
 
 	line = shellx_get_args(line, exec_ret);
 	if (line == NULL)
-		return (shellx_END_OF_FILE);
+		return (SHELLX_END_OF_FILE);
 
 	args = shellx_strtok(line, " ");
 	free(line);
@@ -168,7 +168,7 @@ int shellx_run_args(char **args, char **beg_arg, int *exec_ret)
 	if (builtin)
 	{
 		response = builtin(args + 1, beg_arg);
-		if (response != shellx_EXIT)
+		if (response != SHELLX_EXIT)
 			*exec_ret = response;
 	}
 	else
