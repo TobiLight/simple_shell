@@ -10,7 +10,6 @@ int shellx_cant_open(char *file_path);
 
 /**
  * shellx_cant_open - Prints an error message for a file that can't be opened.
- *
  * @file_path: The path to the file that couldn't be opened.
  *
  * Return: Always returns 127.
@@ -47,7 +46,7 @@ int shellx_cant_open(char *file_path)
 }
 
 /**
- * shellx_proc_commands - Processes commands from a file.
+ * shellx_proc_file_commands - Processes commands from a file.
  * @file_path: Path to the file.
  * @exec_ret: Pointer to return value of the last executed command.
  *
