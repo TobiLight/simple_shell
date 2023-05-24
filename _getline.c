@@ -58,46 +58,55 @@ ssize_t shellx_getline(char **lineptr, size_t *n, FILE *stream)
 // 	if (r != 0)
 // 		input = 0;
 // 	return (ret);
-	static char buffer[BUFFER_SIZE];
-    static ssize_t input = 0;
-    ssize_t ret;
-    char x = 'x';
+	
+	static char buffer[120];
+	static ssize_t input = 0;
+	ssize_t ret;
+	char x = 'x';
 
-    if (input == 0) {
-        fflush(stream);
-        input = read(STDIN_FILENO, buffer, BUFFER_SIZE);
-        if (input <= 0) {
-            return -1;
-        }
-    } else {
-        return -1;
-    }
+	if (input == 0)
+	{
+		fflush(stream);
+		input = read(STDIN_FILENO, buffer, BUFFER_SIZE);
+		if (input <= 0)
+		{
+			return (-1);
+		}
+	}
+	else
+	{
+		return (-1);
+	}
 
-    for (; input > 0; input--) {
-        x = buffer[input - 1];
-        if (x == '\n' || x == '\r') {
-            break;
-        }
-    }
-
-    *lineptr = realloc(*lineptr, input + 1);
-    if (*lineptr == NULL) {
-        return -1;
-    }
-
-    for (ssize_t i = 0; i < input; i++) {
-        (*lineptr)[i] = buffer[i];
-    }
-    (*lineptr)[input] = '\0';
-    ret = input;
-
-    if (x == '\n' || x == '\r') {
-        input = 0;
-    }
-
-    shellx_appoint_lineptr(lineptr, n, *lineptr, input);
-
-    return ret;
+	for (; input > 0; input--)
+	{
+		x = buffer[input - 1];
+		if (x == '\n' || x == '\r')
+		{
+			break;
+		}
+	}
+	
+	*lineptr = realloc(*lineptr, input + 1);
+	if (*lineptr == NULL)
+	{
+		return (-1);
+	}
+	
+	for (ssize_t i = 0; i < input; i++)
+	{
+		(*lineptr)[i] = buffer[i];
+	}
+	(*lineptr)[input] = '\0';
+	ret = input;
+	
+	if (x == '\n' || x == '\r')
+	{
+		input = 0;
+	}
+	
+	shellx_appoint_lineptr(lineptr, n, *lineptr, input);
+	return (ret);
 }
 
 /**
