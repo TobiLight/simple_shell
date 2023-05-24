@@ -53,7 +53,7 @@ int shellx_cant_open(char *file_path)
  * Return: If file couldn't be opened - 127.
  *         If malloc fails - -1.
  *         Otherwise the return value of the last command ran.
- */
+*/
 int shellx_proc_file_commands(char *file_path, int *exec_ret)
 {
 	unsigned int old_size = 120;
