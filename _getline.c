@@ -18,94 +18,46 @@ void shellx_appoint_lineptr(char **, size_t *, char *, size_t);
  */
 ssize_t shellx_getline(char **lineptr, size_t *n, FILE *stream)
 {
-// 	static ssize_t input;
-// 	ssize_t ret;
-// 	char *buffer, x = 'x';
-// 	int r;
-
-// 	if (input == 0)
-// 		fflush(stream);
-// 	else
-// 		return (-1);
-// 	input = 0;
-// 	buffer = malloc(sizeof(char) * 120);
-// 	if (buffer == NULL)
-// 		return (-1);
-
-// 	while (x != '\n')
-// 	{
-// 		r = read(STDIN_FILENO, &x, 1);
-// 		if (r == -1 || (r == 0 && input == 0))
-// 		{
-// 			free(buffer);
-// 			return (-1);
-// 		}
-// 		if (r == 0 && input != 0)
-// 		{
-// 			input++;
-// 			break;
-// 		}
-
-// 		if (input >= 120)
-// 			buffer = shellx_realloc(buffer, input, input + 1);
-
-// 		buffer[input] = x;
-// 		input++;
-// 	}
-// 	buffer[input] = '\0';
-// 	shellx_appoint_lineptr(lineptr, n, buffer, input);
-// 	ret = input;
-// 	if (r != 0)
-// 		input = 0;
-// 	return (ret);
-	
-	static char buffer[120];
 	static ssize_t input = 0;
+	static char buffer[120];
 	ssize_t ret;
 	char x = 'x';
+	int r;
 
 	if (input == 0)
-	{
 		fflush(stream);
-		input = read(STDIN_FILENO, buffer, BUFFER_SIZE);
-		if (input <= 0)
+	else
+		return (-1);
+	input = 0;
+	buffer = malloc(sizeof(char) * 120);
+	if (buffer == NULL)
+		return (-1);
+
+	while (x != '\n')
+	{
+		r = read(STDIN_FILENO, &x, 1);
+		if (r == -1 || (r == 0 && input == 0))
 		{
+			free(buffer);
 			return (-1);
 		}
-	}
-	else
-	{
-		return (-1);
-	}
-
-	for (; input > 0; input--)
-	{
-		x = buffer[input - 1];
-		if (x == '\n' || x == '\r')
+		if (r == 0 && input != 0)
 		{
+			input++;
 			break;
 		}
+
+		if (input >= 120)
+			buffer = shellx_realloc(buffer, input, input + 1);
+
+		buffer[input] = x;
+		input++;
 	}
-	
-	*lineptr = realloc(*lineptr, input + 1);
-	if (*lineptr == NULL)
-	{
-		return (-1);
-	}
-	
-	for (ssize_t i = 0; i < input; i++)
-	{
-		(*lineptr)[i] = buffer[i];
-	}
-	(*lineptr)[input] = '\0';
+	buffer[input] = '\0';
+	shellx_appoint_lineptr(lineptr, n, buffer, input);
 	ret = input;
-	
-	if (x == '\n' || x == '\r')
-	{
+	if (r != 0)
 		input = 0;
-	}
-	
-	shellx_appoint_lineptr(lineptr, n, *lineptr, input);
 	return (ret);
 }
 
