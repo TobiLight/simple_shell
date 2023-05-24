@@ -18,8 +18,8 @@ void shellx_appoint_lineptr(char **, size_t *, char *, size_t);
  */
 ssize_t shellx_getline(char **lineptr, size_t *n, FILE *stream)
 {
-	static ssize_t input = 0;
-	static char buffer[120];
+	static ssize_t input;
+	static char *buffer;
 	ssize_t ret;
 	char x = 'x';
 	int r;
